@@ -5,6 +5,7 @@ Ein Python-Tool zur Erkennung und Gruppierung von Near-Duplicate Keywords in Exc
 ## 🎯 Features
 
 - **Automatische Near-Duplicate-Erkennung** in Keyword-Listen
+- **Leerzeichen-Entfernung** für Zusammenschreibungen (versicherung police → versicherungpolice)
 - **Deutsche Plural-Formen-Erkennung** (en, er, e, s)
 - **Bindestrich-Normalisierung** (e-mobility → e mobility)
 - **Alphabetische Sortierung** der Wörter
@@ -60,26 +61,33 @@ Das Tool erstellt eine neue Excel-Datei mit folgenden Spalten:
 ### Beispiel Output
 ```
 Keyword              | Normalized_Keyword | Duplicate_Group
-ar e mobility        | ar e mobility      | ar e mobility
-ar e-mobility        | ar e mobility      | ar e mobility
-auto versicherung    | auto versicherung  | auto versicherung
-autos versicherungen | auto versicherung  | auto versicherung
+versicherung police  | versicherungpolice | versicherungpolice
+versicherungpolice   | versicherungpolice | versicherungpolice
+e-mobility           | e mobility         | e mobility
+e mobility           | e mobility         | e mobility
+versicherungen       | versicherung       | versicherung
+versicherung         | versicherung       | versicherung
 ```
 
 ## 🔧 Normalisierungs-Regeln
 
-### 1. Bindestrich-Normalisierung
+### 1. Leerzeichen-Entfernung (für Zusammenschreibungen)
+- `versicherung police` → `versicherungpolice`
+- `schaden meldung` → `schadenmeldung`
+- `unfall protokoll` → `unfallprotokoll`
+
+### 2. Bindestrich-Normalisierung
 - `e-mobility` → `e mobility`
 - `auto-versicherung` → `auto versicherung`
 
-### 2. Deutsche Plural-Formen
+### 3. Deutsche Plural-Formen
 - `autos` → `auto`
 - `kinder` → `kind`
 - `tage` → `tag`
 - `hotels` → `hotel`
 - `versicherungen` → `versicherung`
 
-### 3. Alphabetische Sortierung
+### 4. Alphabetische Sortierung
 - `versicherung auto` → `auto versicherung`
 - `schweiz auto` → `auto schweiz`
 
