@@ -5,7 +5,8 @@ import sys
 def normalize_keyword(keyword):
     """
     Normalisiert einen Keyword-String, indem Bindestriche entfernt,
-    Kleinbuchstaben verwendet, Singular/Plural normalisiert und Wörter alphabetisch sortiert werden.
+    Kleinbuchstaben verwendet, Leerzeichen entfernt, Singular/Plural normalisiert 
+    und Wörter alphabetisch sortiert werden.
     """
     # Sicherstellen, dass das Keyword ein String ist
     if not isinstance(keyword, str):
@@ -23,46 +24,54 @@ def normalize_keyword(keyword):
     # 4. Wörter in einer Liste aufteilen
     words = keyword.split(' ')
     
-    # 5. Singular/Plural normalisieren
+    # 5. Leerzeichen in der Mitte entfernen (für Zusammenschreibungen)
     normalized_words = []
     for word in words:
+        # Leerzeichen entfernen für Zusammenschreibungen
+        # "auto flotte" -> "autoflotte"
+        word = word.replace(' ', '')
+        normalized_words.append(word)
+    
+    # 6. Singular/Plural normalisieren
+    final_words = []
+    for word in normalized_words:
         # Deutsche Plural-Regeln
         if word.endswith('en'):
             # "autos" -> "auto", "versicherungen" -> "versicherung"
             singular = word[:-2]
             if len(singular) > 2:  # Mindestens 3 Buchstaben
-                normalized_words.append(singular)
+                final_words.append(singular)
             else:
-                normalized_words.append(word)
+                final_words.append(word)
         elif word.endswith('er'):
             # "kinder" -> "kind", "häuser" -> "haus"
             singular = word[:-2]
             if len(singular) > 2:
-                normalized_words.append(singular)
+                final_words.append(singular)
             else:
-                normalized_words.append(word)
+                final_words.append(word)
         elif word.endswith('e'):
             # "tage" -> "tag", "jahre" -> "jahr"
             singular = word[:-1]
             if len(singular) > 2:
-                normalized_words.append(singular)
+                final_words.append(singular)
             else:
-                normalized_words.append(word)
+                final_words.append(word)
         elif word.endswith('s'):
             # "autos" -> "auto", "hotels" -> "hotel"
             singular = word[:-1]
             if len(singular) > 2:
-                normalized_words.append(singular)
+                final_words.append(singular)
             else:
-                normalized_words.append(word)
+                final_words.append(word)
         else:
-            normalized_words.append(word)
+            final_words.append(word)
     
-    # 6. Wörter alphabetisch sortieren
-    normalized_words.sort()
+    # 7. Wörter alphabetisch sortieren
+    final_words.sort()
     
-    # 7. Wörter wieder zu einem String zusammenfügen
-    return ' '.join(normalized_words)
+    # 8. Wörter wieder zu einem String zusammenfügen
+    return ' '.join(final_words)
 
 def display_duplicate_groups(df, keyword_column_name='Keyword'):
     """
