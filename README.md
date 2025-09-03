@@ -6,6 +6,7 @@ Ein Python-Tool zur Erkennung und Gruppierung von Near-Duplicate Keywords in Exc
 
 - **Automatische Near-Duplicate-Erkennung** in Keyword-Listen
 - **Leerzeichen-Entfernung** für Zusammenschreibungen (versicherung police → versicherungpolice)
+- **Satzzeichen-Entfernung** für saubere Keywords (dr. mickeler → dr mickeler)
 - **Deutsche Plural-Formen-Erkennung** (en, er, e, s)
 - **Bindestrich-Normalisierung** (e-mobility → e mobility)
 - **Alphabetische Sortierung** der Wörter
@@ -76,18 +77,23 @@ versicherung         | versicherung       | versicherung
 - `schaden meldung` → `schadenmeldung`
 - `unfall protokoll` → `unfallprotokoll`
 
-### 2. Bindestrich-Normalisierung
+### 2. Satzzeichen-Entfernung
+- `dr. mickeler` → `dr mickeler`
+- `schaden.meldung!` → `schadenmeldung`
+- `unfall,protokoll?` → `unfallprotokoll`
+
+### 3. Bindestrich-Normalisierung
 - `e-mobility` → `e mobility`
 - `auto-versicherung` → `auto versicherung`
 
-### 3. Deutsche Plural-Formen
+### 4. Deutsche Plural-Formen
 - `autos` → `auto`
 - `kinder` → `kind`
 - `tage` → `tag`
 - `hotels` → `hotel`
 - `versicherungen` → `versicherung`
 
-### 4. Alphabetische Sortierung
+### 5. Alphabetische Sortierung
 - `versicherung auto` → `auto versicherung`
 - `schweiz auto` → `auto schweiz`
 
