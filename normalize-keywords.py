@@ -15,16 +15,19 @@ def normalize_keyword(keyword):
     # 1. In Kleinbuchstaben umwandeln
     keyword = keyword.lower()
     
-    # 2. Bindestriche durch Leerzeichen ersetzen
+    # 2. Punkte und andere Satzzeichen entfernen
+    keyword = keyword.replace('.', '').replace(',', '').replace('!', '').replace('?', '').replace(':', '').replace(';', '')
+    
+    # 3. Bindestriche durch Leerzeichen ersetzen
     keyword = keyword.replace('-', ' ')
     
-    # 3. Mehrere Leerzeichen durch ein einzelnes Leerzeichen ersetzen
+    # 4. Mehrere Leerzeichen durch ein einzelnes Leerzeichen ersetzen
     keyword = re.sub(' +', ' ', keyword).strip()
     
-    # 4. Wörter in einer Liste aufteilen
+    # 5. Wörter in einer Liste aufteilen
     words = keyword.split(' ')
     
-    # 5. Leerzeichen in der Mitte entfernen (für Zusammenschreibungen)
+    # 6. Leerzeichen in der Mitte entfernen (für Zusammenschreibungen)
     normalized_words = []
     for word in words:
         # Leerzeichen entfernen für Zusammenschreibungen
@@ -32,7 +35,7 @@ def normalize_keyword(keyword):
         word = word.replace(' ', '')
         normalized_words.append(word)
     
-    # 6. Singular/Plural normalisieren
+    # 7. Singular/Plural normalisieren
     final_words = []
     for word in normalized_words:
         # Deutsche Plural-Regeln
@@ -70,7 +73,7 @@ def normalize_keyword(keyword):
     # 7. Wörter alphabetisch sortieren
     final_words.sort()
     
-    # 8. Wörter wieder zu einem String zusammenfügen
+    # 9. Wörter wieder zu einem String zusammenfügen
     return ' '.join(final_words)
 
 def display_duplicate_groups(df, keyword_column_name='Keyword'):
