@@ -18,6 +18,9 @@ def normalize_keyword(keyword):
     # 2. Punkte und andere Satzzeichen entfernen
     keyword = keyword.replace('.', '').replace(',', '').replace('!', '').replace('?', '').replace(':', '').replace(';', '')
     
+    # 2.5. ß zu ss normalisieren
+    keyword = keyword.replace('ß', 'ss')
+    
     # 3. Bindestriche durch Leerzeichen ersetzen
     keyword = keyword.replace('-', ' ')
     

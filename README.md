@@ -7,6 +7,7 @@ Ein Python-Tool zur Erkennung und Gruppierung von Near-Duplicate Keywords in Exc
 - **Automatische Near-Duplicate-Erkennung** in Keyword-Listen
 - **Leerzeichen-Entfernung** für Zusammenschreibungen (versicherung police → versicherungpolice)
 - **Satzzeichen-Entfernung** für saubere Keywords (dr. mickeler → dr mickeler)
+- **ß-Normalisierung** für deutsche Texte (schrank nach maß → schrank nach mass)
 - **Deutsche Plural-Formen-Erkennung** (en, er, e, s)
 - **Bindestrich-Normalisierung** (e-mobility → e mobility)
 - **Alphabetische Sortierung** der Wörter
@@ -66,6 +67,8 @@ versicherung police  | versicherungpolice | versicherungpolice
 versicherungpolice   | versicherungpolice | versicherungpolice
 e-mobility           | e mobility         | e mobility
 e mobility           | e mobility         | e mobility
+schrank nach maß     | schrank nach mass  | schrank nach mass
+schrank nach mass    | schrank nach mass  | schrank nach mass
 versicherungen       | versicherung       | versicherung
 versicherung         | versicherung       | versicherung
 ```
@@ -82,18 +85,23 @@ versicherung         | versicherung       | versicherung
 - `schaden.meldung!` → `schadenmeldung`
 - `unfall,protokoll?` → `unfallprotokoll`
 
-### 3. Bindestrich-Normalisierung
+### 3. ß-Normalisierung
+- `schrank nach maß` → `schrank nach mass`
+- `straße` → `strasse`
+- `groß` → `gross`
+
+### 4. Bindestrich-Normalisierung
 - `e-mobility` → `e mobility`
 - `auto-versicherung` → `auto versicherung`
 
-### 4. Deutsche Plural-Formen
+### 5. Deutsche Plural-Formen
 - `autos` → `auto`
 - `kinder` → `kind`
 - `tage` → `tag`
 - `hotels` → `hotel`
 - `versicherungen` → `versicherung`
 
-### 5. Alphabetische Sortierung
+### 6. Alphabetische Sortierung
 - `versicherung auto` → `auto versicherung`
 - `schweiz auto` → `auto schweiz`
 
