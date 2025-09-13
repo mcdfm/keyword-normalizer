@@ -1,3 +1,5 @@
+# python3 normalize-keywords.py 
+
 import pandas as pd
 import re
 import sys
@@ -49,8 +51,9 @@ def normalize_keyword(keyword):
                 final_words.append(singular)
             else:
                 final_words.append(word)
-        elif word.endswith('er'):
+        elif word.endswith('er') and len(word) > 4:
             # "kinder" -> "kind", "häuser" -> "haus"
+            # Aber NICHT bei kurzen Wörtern wie "wasser", "messer", "teller"
             singular = word[:-2]
             if len(singular) > 2:
                 final_words.append(singular)
@@ -63,8 +66,9 @@ def normalize_keyword(keyword):
                 final_words.append(singular)
             else:
                 final_words.append(word)
-        elif word.endswith('s'):
+        elif word.endswith('s') and not word.endswith('ss'):
             # "autos" -> "auto", "hotels" -> "hotel"
+            # Aber NICHT bei "ss" am Ende (wie "mass", "wasser")
             singular = word[:-1]
             if len(singular) > 2:
                 final_words.append(singular)
